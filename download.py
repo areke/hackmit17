@@ -20,4 +20,4 @@ def download():
 images = os.listdir(CAPTCHA_DIRECTORY)
 while len(images) != 4000:
     download()
-    images = os.listdir(LABELED_DIRECTORY)
+    images = os.listdir(CAPTCHA_DIRECTORY)
