@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <script src = "{{ url_for('static', filename='jquery.min.js') }}"></script>
+    </head>
+    <body>
+
+        <form id = "form" action = "http://localhost:5000/label" method = "POST">
+            <div id = 'img'></div>
+            <input type = 'text' id = 'label' name = 'label'></input>
+            <input type = 'text' style = 'display: none' id = 'name' name = 'name'></input>
+        </form>
+        <script type= "text/javascript">
+
+            $('#label').keyup(function() {
+                if ($('#label').val().length == 4) {
+                    $('#form').submit()
+                }
+            });
+
+            function nextImage() {
+                $.ajax({
+                    url: 'http://localhost:5000/next',
+                    type: 'get',
+                    success: function(data) {
+                        console.log('<img src = "' + data.name + '"></img>');
+                        $('#img').html('<img src = "' + data.name + '"></img>');
+                        $('#name').val(data.name);
+                    } 
+                });
+            }
+
+            $('#form').submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: 'http://localhost:5000/label',
+                    type: 'post',
+                    data: $('#form').serialize(),
+                    success: function() {
+                        $('#label').val('');
+                        
+                    }
+                });
+                nextImage()
+            });
+            nextImage();
+        </script>
+    </body>
+</html>
