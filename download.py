@@ -1,6 +1,7 @@
 
 import urllib, urllib2, json, string, time, base64, os, cv2
 CAPTCHA_DIRECTORY = 'static/captcha_images/'
+LABELED_DIRECTORY = 'static/labeled_images/'
 def download():
     url = 'https://captcha.delorean.codes/u/areke/challenge'
     data = {}
@@ -19,3 +20,4 @@ def download():
 images = os.listdir(CAPTCHA_DIRECTORY)
 while len(images) != 4000:
     download()
+    images = os.listdir(LABELED_DIRECTORY)
